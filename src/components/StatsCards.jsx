@@ -10,10 +10,23 @@ const formatMoney = (value) =>
 const formatPercent = (value) => `${value.toFixed(1)}%`
 
 export function StatsCards() {
-  const stats = useSelector((state) => state.simulation.result.stats)
+  const result = useSelector((state) => state.simulation.result)
+
+  if (!result) {
+    return (
+      <section className="stats-grid">
+        <article className="panel stat-card placeholder">
+          <h3>Run simulation to see results</h3>
+        </article>
+      </section>
+    )
+  }
+
+  const stats = result.stats
 
   const cards = [
     { label: 'Median Final Equity', value: formatMoney(stats.medianFinal) },
+    { label: 'Median Profit', value: formatMoney(stats.medianProfit) },
     { label: 'Average Final Equity', value: formatMoney(stats.meanFinal) },
     { label: 'Best / Worst Final', value: `${formatMoney(stats.bestFinal)} / ${formatMoney(stats.worstFinal)}` },
     { label: 'Profitable Runs', value: formatPercent(stats.profitablePercent) },

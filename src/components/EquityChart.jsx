@@ -17,7 +17,25 @@ const moneyFormatter = new Intl.NumberFormat('en-US', {
 })
 
 export function EquityChart() {
-  const data = useSelector((state) => state.simulation.result.series.equitySeries)
+  const result = useSelector((state) => state.simulation.result)
+
+  if (!result) {
+    return (
+      <section className="panel chart-panel">
+        <div className="panel-heading">
+          <h2>Equity Curve Envelope</h2>
+          <p>Percentile bands from all Monte Carlo runs for each trade index.</p>
+        </div>
+        <div className="chart-wrap placeholder-chart">
+          <p style={{ color: 'var(--neon-purple)', textAlign: 'center', paddingTop: '5rem' }}>
+            Run a simulation to view equity curves
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  const data = result.series.equitySeries
 
   return (
     <section className="panel chart-panel">

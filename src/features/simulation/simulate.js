@@ -55,7 +55,7 @@ const createDistribution = (values, bucketCount = 14) => {
   }))
 }
 
-export const runMonteCarloSimulation = (rawInput) => {
+export const runMonteCarloSimulation = async (rawInput, randomGenerator = Math.random) => {
   const input = {
     startingBalance: toNumber(rawInput.startingBalance, 10000),
     winRate: toNumber(rawInput.winRate, 50),
@@ -81,7 +81,8 @@ export const runMonteCarloSimulation = (rawInput) => {
     for (let trade = 1; trade <= input.tradesPerSimulation; trade += 1) {
       if (!halted) {
         const riskAmount = equity * (input.riskPercent / 100)
-        const isWin = Math.random() <= input.winRate / 100
+        const randomValue = await Promise.resolve(randomGenerator())
+        const isWin = randomValue <= input.winRate / 100
 
         equity = isWin ? equity + riskAmount * input.riskReward : equity - riskAmount
         if (equity < 0) equity = 0
@@ -135,6 +136,7 @@ export const runMonteCarloSimulation = (rawInput) => {
     start: input.startingBalance,
     meanFinal: average(finalEquity),
     medianFinal: percentile(finalEquity, 0.5),
+    medianProfit: percentile(finalEquity, 0.5) - input.startingBalance,
     bestFinal: finalEquity[finalEquity.length - 1],
     worstFinal: finalEquity[0],
     profitablePercent:

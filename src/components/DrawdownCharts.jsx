@@ -13,8 +13,40 @@ import {
 } from 'recharts'
 
 export function DrawdownCharts() {
-  const drawdownData = useSelector((state) => state.simulation.result.series.drawdownSeries)
-  const distributionData = useSelector((state) => state.simulation.result.series.finalDistribution)
+  const result = useSelector((state) => state.simulation.result)
+
+  if (!result) {
+    return (
+      <section className="chart-grid">
+        <article className="panel chart-panel">
+          <div className="panel-heading">
+            <h2>Drawdown Profile</h2>
+            <p>How deep drawdowns get as trade count increases.</p>
+          </div>
+          <div className="chart-wrap placeholder-chart">
+            <p style={{ color: 'var(--neon-purple)', textAlign: 'center', paddingTop: '5rem' }}>
+              Run a simulation to view charts
+            </p>
+          </div>
+        </article>
+
+        <article className="panel chart-panel">
+          <div className="panel-heading">
+            <h2>Final Equity Distribution</h2>
+            <p>Frequency of ending balances across all simulations.</p>
+          </div>
+          <div className="chart-wrap placeholder-chart">
+            <p style={{ color: 'var(--neon-purple)', textAlign: 'center', paddingTop: '5rem' }}>
+              Run a simulation to view charts
+            </p>
+          </div>
+        </article>
+      </section>
+    )
+  }
+
+  const drawdownData = result.series.drawdownSeries
+  const distributionData = result.series.finalDistribution
 
   return (
     <section className="chart-grid">

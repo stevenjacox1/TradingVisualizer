@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { resetInputs, runSimulation, updateInput } from '../features/simulation/simulationSlice'
+import { resetInputs, updateInput, runSimulationAsync } from '../features/simulation/simulationSlice'
 
 const fields = [
   {
@@ -56,6 +56,8 @@ const fields = [
 export function SimulationForm() {
   const dispatch = useDispatch()
   const inputs = useSelector((state) => state.simulation.inputs)
+  const loading = useSelector((state) => state.simulation.loading)
+  const error = useSelector((state) => state.simulation.error)
 
   const onInputChange = (field, event) => {
     const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
@@ -64,7 +66,7 @@ export function SimulationForm() {
 
   const onSubmit = (event) => {
     event.preventDefault()
-    dispatch(runSimulation())
+    dispatch(runSimulationAsync(inputs))
   }
 
   return (
@@ -85,6 +87,7 @@ export function SimulationForm() {
               max={field.max}
               step={field.step}
               onChange={(event) => onInputChange(field.key, event)}
+              disabled={loading}
               required
             />
           </label>
@@ -101,6 +104,34 @@ export function SimulationForm() {
           </div>
         </div>
 
+        <label className="field radio-field" htmlFor="randomness-math">
+          <span>Randomness Source</span>
+          <div className="radio-group">
+            <label>
+              <input
+                type="radio"
+                name="randomnessSource"
+                value="math"
+                checked={inputs.randomnessSource === 'math'}
+                onChange={(event) => onInputChange('randomnessSource', { ...event, target: { ...event.target, value: event.target.value } })}
+                disabled={loading}
+              />
+              Math.random() (fast)
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="randomnessSource"
+                value="random.org"
+                checked={inputs.randomnessSource === 'random.org'}
+                onChange={(event) => onInputChange('randomnessSource', { ...event, target: { ...event.target, value: event.target.value } })}
+                disabled={loading}
+              />
+              random.org (true random)
+            </label>
+          </div>
+        </label>
+
         <label className="field checkbox-field" htmlFor="stopAtMaxDrawdown">
           <span>Stop simulation once max drawdown is hit</span>
           <input
@@ -108,18 +139,22 @@ export function SimulationForm() {
             type="checkbox"
             checked={inputs.stopAtMaxDrawdown}
             onChange={(event) => onInputChange('stopAtMaxDrawdown', event)}
+            disabled={loading}
           />
         </label>
       </div>
 
+      {error && <div className="error-message">Error: {error}</div>}
+
       <div className="button-row">
-        <button type="submit" className="btn btn-primary">
-          Run Monte Carlo
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? 'Running...' : 'Run Monte Carlo'}
         </button>
         <button
           type="button"
           className="btn btn-secondary"
           onClick={() => dispatch(resetInputs())}
+          disabled={loading}
         >
           Reset Defaults
         </button>

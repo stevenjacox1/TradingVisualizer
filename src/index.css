@@ -1,12 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Source+Code+Pro:wght@400;500;700&display=swap');
 
 :root {
-  --ink: #133343;
-  --body: #315463;
-  --paper: #fff9ef;
-  --line: rgba(22, 61, 78, 0.2);
-  --font-ui: 'Manrope', 'Segoe UI', sans-serif;
-  --font-display: 'Fraunces', Georgia, serif;
+  --neon-cyan: #00fff0;
+  --neon-magenta: #ff0080;
+  --neon-purple: #c000ff;
+  --neon-green: #00ff41;
+  --neon-pink: #ff006e;
+  --dark-bg: #0a0e27;
+  --dark-panel: #0f1229;
+  --bright-text: #00fff0;
+  --body-text: #c9d1de;
+  --font-ui: 'Source Code Pro', 'Courier New', monospace;
+  --font-display: 'Orbitron', sans-serif;
 }
 
 * {
@@ -17,24 +22,45 @@ body {
   margin: 0;
   min-height: 100svh;
   font-family: var(--font-ui);
-  color: var(--body);
-  background:
-    radial-gradient(circle at 12% 15%, rgba(252, 203, 120, 0.44), transparent 35%),
-    radial-gradient(circle at 85% 25%, rgba(102, 186, 172, 0.42), transparent 38%),
-    linear-gradient(165deg, #f7efe1 0%, #f3eee6 52%, #e8f0ee 100%);
+  color: var(--body-text);
+  background: linear-gradient(135deg, #0a0e27 0%, #1a0f3e 50%, #0f1938 100%);
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 240, 0.02),
+      rgba(0, 255, 240, 0.02) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  pointer-events: none;
+  z-index: 1;
 }
 
 #root {
   min-height: 100svh;
+  position: relative;
+  z-index: 2;
 }
 
 h1,
 h2,
 h3 {
   margin: 0;
-  color: var(--ink);
+  color: var(--neon-cyan);
   font-family: var(--font-display);
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 p {
