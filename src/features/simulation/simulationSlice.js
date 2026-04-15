@@ -7,9 +7,10 @@ const initialInputs = {
   winRate: 45,
   riskReward: 2,
   riskPercent: 1,
+  weeklyTrades: 1,
   maxDrawdownPercent: 30,
   stopAtMaxDrawdown: true,
-  tradesPerSimulation: 200,
+  weeksPerSimulation: 200,
   numberOfSimulations: 500,
   randomnessSource: 'math', // 'math' or 'random.org'
 }

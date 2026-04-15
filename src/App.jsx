@@ -2,6 +2,7 @@ import { SimulationForm } from './components/SimulationForm'
 import { StatsCards } from './components/StatsCards'
 import { EquityChart } from './components/EquityChart'
 import { DrawdownCharts } from './components/DrawdownCharts'
+import { MedianWeeklyHistory } from './components/MedianWeeklyHistory'
 import './App.css'
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <StatsCards />
       <EquityChart />
       <DrawdownCharts />
+      <MedianWeeklyHistory />
     </main>
   )
 }

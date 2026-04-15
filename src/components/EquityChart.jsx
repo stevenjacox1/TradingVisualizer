@@ -24,7 +24,7 @@ export function EquityChart() {
       <section className="panel chart-panel">
         <div className="panel-heading">
           <h2>Equity Curve Envelope</h2>
-          <p>Percentile bands from all Monte Carlo runs for each trade index.</p>
+          <p>Percentile bands from all Monte Carlo runs for each week.</p>
         </div>
         <div className="chart-wrap placeholder-chart">
           <p style={{ color: 'var(--neon-purple)', textAlign: 'center', paddingTop: '5rem' }}>
@@ -41,13 +41,13 @@ export function EquityChart() {
     <section className="panel chart-panel">
       <div className="panel-heading">
         <h2>Equity Curve Envelope</h2>
-        <p>Percentile bands from all Monte Carlo runs for each trade index.</p>
+        <p>Percentile bands from all Monte Carlo runs for each week.</p>
       </div>
       <div className="chart-wrap">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(10, 42, 56, 0.15)" />
-            <XAxis dataKey="trade" stroke="#1f5568" />
+            <XAxis dataKey="week" stroke="#1f5568" />
             <YAxis stroke="#1f5568" tickFormatter={(value) => `$${Math.round(value / 1000)}k`} />
             <Tooltip formatter={(value) => moneyFormatter.format(value)} />
             <Legend />
