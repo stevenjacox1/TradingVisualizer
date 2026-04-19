@@ -39,3 +39,39 @@ Open the URL shown in the terminal (usually http://localhost:5173).
 ```bash
 npm run build
 ```
+
+## Deploy To Azure Static Web Apps
+
+This repo is configured for Azure Static Web Apps with GitHub Actions.
+
+### 1. Push To GitHub
+
+Make sure this project is in a GitHub repository and your default branch is `main`.
+
+### 2. Create The Static Web App Resource
+
+1. In Azure Portal, create a new **Static Web App**.
+2. Deployment source: **GitHub**.
+3. Choose your repository and `main` branch.
+4. Build details:
+  - App location: `/`
+  - API location: *(leave blank)*
+  - Output location: `dist`
+
+Azure will create the `AZURE_STATIC_WEB_APPS_API_TOKEN` secret in your GitHub repo.
+
+### 3. Verify Workflow
+
+The workflow file is:
+
+- `.github/workflows/azure-static-web-apps.yml`
+
+It builds and deploys on pushes to `main`.
+
+### 4. Share Your App
+
+After the workflow finishes, Azure provides a public URL like:
+
+`https://<your-app-name>.azurestaticapps.net`
+
+Use that URL to share your app.
