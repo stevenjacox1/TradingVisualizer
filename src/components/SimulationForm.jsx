@@ -97,7 +97,6 @@ const fields = [
     key: 'riskPercent',
     label: 'Risk per trade (% of account)',
     min: 0.1,
-    max: 20,
     step: 0.1,
   },
   {
