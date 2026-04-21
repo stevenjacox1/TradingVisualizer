@@ -74,10 +74,10 @@ const getRiskOfRuinPercent = (inputs) => {
 const fields = [
   {
     key: 'startingBalance',
-    label: 'Available Drawdown ($)',
-    min: 100,
+    label: 'Starting Capital ($)',
+    min: 1,
     max: 100000000,
-    step: 100,
+    step: 1,
   },
   {
     key: 'winRate',
